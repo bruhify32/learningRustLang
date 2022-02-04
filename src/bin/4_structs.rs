@@ -46,7 +46,7 @@ fn main(){
 
     //Example code
     {
-        #[derive(Debug)]//
+        #[derive(Debug)]//to able to print debugging information
         struct Rectangle{
             width: u32,
             height: u32,
@@ -57,6 +57,45 @@ fn main(){
         fn area(rectangle: &Rectangle) -> u32{
             rectangle.width * rectangle.height
         }
+    }
+    //Method struct
+    {
+        struct Rectangle{
+            width: u32,
+            height: u32,
+        }
+        let rect1 = Rectangle{ width: 30, height: 40 };
+        let rect2 = Rectangle{ width: 20, height: 30};
+        
+        let sqr1 = Rectangle::square(50);//using associated function
+
+        println!("The arect of the rectangle is {}", rect1.area());
+        println!("Rect1 can hold rect2 {}",rect1.can_hold(&rect2));
+        println!("Rect2 can hold rect1 {}", rect2.can_hold(&rect1) );
+
+        impl Rectangle{
+            fn area(&self) -> u32{
+                self.width * self.height
+            }
+            fn can_hold(&self, other: &Rectangle) -> bool {
+                self.width > other.width && self.height > other.height
+            }
+            //Associated function like for example String::from()
+            fn square(size: u32) -> Rectangle{
+                Rectangle {width:size,height:size}
+            }
+        }
+        //Multiple impl blocks for example like below syntaxtically correct.
+        // impl Rectangle{
+        //     fn area(&self) -> u32{
+        //         self.width * self.height
+        //     }
+        // }
+        // impl Rectangle{
+        //     fn can_hold(&self, other: &Rectangle) -> bool {
+        //         self.width > other.width && self.height > other.height
+        //     }
+        // }
     }
 
 
