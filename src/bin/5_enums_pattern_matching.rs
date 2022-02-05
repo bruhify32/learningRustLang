@@ -46,6 +46,63 @@ fn main(){
         }
         let some_number = Some(5);
         let some_string = Some("A String");
-        let absent_number: Option<i32> = None;
+        // let absent_number: Option<i32> = None;
+    }
+    //The match control flow operator
+    {
+        #[derive(Debug)]
+        enum UsStates{
+            Alabama,
+            Alaska
+        }
+        enum Coin{
+            Penny,
+            Nickel,
+            Dime,
+            Quarter(UsStates),
+        }
+        fn values_in_cents(coin: Coin) -> u8 {
+            match coin{
+                Coin::Penny => {
+                    println!("Lucky penny");
+                    1
+                },
+                Coin::Nickel => 5,
+                Coin::Dime => 10,
+                Coin::Quarter(state) => {
+                    println!("State quarter from {:?}",state);
+                    25
+                },
+            }
+        }
+        println!("{}",values_in_cents(Coin::Penny));
+        println!("{}",values_in_cents(Coin::Quarter(UsStates::Alaska)));
+    }
+    //Matching with Option<T>
+    {
+        #[derive(Debug)]
+        enum Option<T>{
+            Some(T),
+            None,
+        }
+        fn plus_one(x: Option<i32>) -> Option<i32>{
+            match x {
+                Option::Some(i) => Option::Some(i+1),
+                Option::None => Option::None,
+            }
+        }
+        let five = Option::Some(5);
+        let six = plus_one(five);
+        println!("{:?}",six);
+
+        // the  _Placeholder
+        let some_u8_value = 0u8;
+        match some_u8_value {
+            1 => println!("one"),
+            3 => println!("Three"),
+            5 => println!("Five"),
+            _ => (),
+        }
+        
     }
 }
